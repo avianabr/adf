@@ -21,7 +21,17 @@ O roteiro está em [docs/go-application-inventory-guide.md](docs/go-application-
 
 O roteiro cobre, entre outros temas: arquitetura, dependências, fluxos
 funcionais, Kafka, GaussDB/PostgreSQL, SQL e DML em lote, Redis, dados
-CLOB/BLOB/JSON, observabilidade e o formato padronizado do relatório.
+CLOB/BLOB/JSON, observabilidade, empacotamento e execução em containers ou
+Kubernetes, além do formato padronizado do relatório.
+
+## Empacotamento e execução
+
+Para mapear como a aplicação é preparada para rodar, disponibilize também os
+artefatos de entrega que existirem: Dockerfiles, arquivos Compose, Makefiles,
+scripts de build, pipelines de CI/CD, manifests Kubernetes, charts Helm e overlays
+Kustomize. O roteiro identifica o que é comprovado nesses arquivos — build,
+imagem, comando, portas, configuração, recursos, probes e permissões — sem
+presumir que um artefato esteja aplicado em um ambiente real.
 
 ## Exemplo de prompt
 
@@ -30,9 +40,11 @@ Analise o codebase Go localizado em <CAMINHO_DO_CODEBASE> usando integralmente o
 roteiro em <CAMINHO_DESTE_PROJETO>/docs/go-application-inventory-guide.md.
 
 Escopo: analise código Go, go.mod/go.sum, configurações, migrations, arquivos
-SQL, testes, Dockerfiles, pipelines e manifests de entrega disponíveis no
-repositório. Não acesse nem suponha informações de infraestrutura que não estejam
-nesses artefatos.
+SQL, testes, Dockerfiles, Compose, Makefiles, pipelines, manifests Kubernetes,
+charts Helm e overlays Kustomize disponíveis no repositório. Para os artefatos de
+entrega, mapeie build, imagens, execução, rede, configuração, recursos, probes e
+permissões somente quando forem comprovados. Não acesse nem suponha informações
+de infraestrutura que não estejam nesses artefatos.
 
 Produza o relatório final estritamente no template Markdown definido na seção
 "Consolidação e validação" do roteiro. Para cada achado, cite caminho relativo e
@@ -46,6 +58,6 @@ lacuna, os locais examinados e a evidência necessária para confirmar a conclus
 ## Saída esperada
 
 O relatório inclui resumo e escopo, arquitetura, dependências, fluxos, integrações
-técnicas e riscos. Se uma área não apresentar achados, o LLM deve declarar o
-escopo e as evidências de busca, sem concluir que um comportamento não existe fora
-do repositório.
+técnicas, observabilidade, empacotamento/execução e riscos. Se uma área não
+apresentar achados, o LLM deve declarar o escopo e as evidências de busca, sem
+concluir que um comportamento não existe fora do repositório.

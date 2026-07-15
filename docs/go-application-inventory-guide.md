@@ -271,7 +271,38 @@ sanitização, criptografia, retenção e exposição em logs/respostas.
 | Sinal | Pacote/símbolo | Biblioteca/versão | Evento, métrica ou span | Atributos/correlação | Configuração/destino | Fluxo/cobertura | Riscos/evidência |
 |---|---|---|---|---|---|---|---|
 
-## 12. Consolidação e validação
+## 12. Roteiro específico: empacotamento e execução
+
+1. Localize Dockerfiles, Compose, Makefiles, scripts de build, pipelines CI/CD,
+   configurações de registro de imagem e artefatos equivalentes. A presença do
+   arquivo não prova que ele é usado: relacione-o a um comando, pipeline ou outro
+   artefato de execução somente quando essa relação for observável.
+2. Para cada artefato de container ou build, registre estágios, imagem base,
+   módulo ou binário Go produzido, diretório de trabalho, entrypoint/comando,
+   usuário, portas, volumes, variáveis de ambiente e argumentos de build quando
+   observáveis. Nunca exponha valores secretos.
+3. Identifique como o artefato é versionado, publicado ou promovido entre
+   ambientes somente quando scripts ou pipelines o comprovarem. Registre também
+   testes, scans, assinaturas ou validações de imagem quando observáveis; não
+   suponha uma imagem publicada, tag ou etapa de pipeline ausente.
+4. Localize manifests Kubernetes, charts Helm, overlays Kustomize ou equivalentes.
+   Para cada workload, registre tipo, nome/namespace quando explícito, imagem,
+   réplicas, comando, portas, Service, Ingress, ConfigMap, referências a Secret,
+   volumes, probes, recursos, autoscaling e políticas de rede quando observáveis.
+5. Mapeie identidade e permissões de execução — `serviceAccount`, RBAC, contexto
+   de segurança, usuário/grupo e capabilities — e diferenças entre ambientes
+   somente quando comprovadas pelos artefatos. Registre riscos operacionais,
+   como ausência de limites, probes ou restrições, sem concluir o estado efetivo
+   do cluster.
+6. Classifique como hipótese ou lacuna qualquer recurso aplicado, valor secreto,
+   permissão efetiva, imagem publicada, configuração de runtime ou comportamento
+   de orquestrador que não possa ser comprovado pelo codebase ou pela configuração
+   disponível.
+
+| Artefato/recurso | Tipo/ambiente | Build ou imagem | Execução/configuração | Rede, volumes e recursos | Segurança/permissões | Pipeline/uso comprovado | Riscos/evidência |
+|---|---|---|---|---|---|---|---|
+
+## 13. Consolidação e validação
 
 Produza o relatório final estritamente em Markdown, usando o template abaixo. Não
 omita uma seção: quando não houver achados, use o formato de seção sem achados
@@ -373,7 +404,12 @@ apenas nome da variável, mecanismo de leitura e finalidade inferida.
 | Sinal | Pacote/símbolo | Biblioteca/versão | Evento, métrica ou span | Atributos/correlação | Destino | Cobertura | Riscos/evidência |
 |---|---|---|---|---|---|---|---|
 
-## 12. Riscos, lacunas, hipóteses e perguntas em aberto
+## 12. Empacotamento e execução
+
+| Artefato/recurso | Tipo/ambiente | Build ou imagem | Execução/configuração | Rede, volumes e recursos | Segurança/permissões | Pipeline/uso comprovado | Riscos/evidência |
+|---|---|---|---|---|---|---|---|
+
+## 13. Riscos, lacunas, hipóteses e perguntas em aberto
 
 | Prioridade | Tipo | Descrição | Impacto | Evidência disponível | Próxima evidência/ação |
 |---|---|---|---|---|---|
